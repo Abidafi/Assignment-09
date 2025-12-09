@@ -1,17 +1,44 @@
 import { Link, useNavigate } from "react-router";
-
 import { FaEye } from "react-icons/fa";
-
 import { IoEyeOff } from "react-icons/io5";
-
 import MyContainer from "../components/MyContainer";
-
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase.config";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 const Signup = () => {
-  
-
+  const [show, setShow] = useState(false);
   const handleSignup = (e) => {
-    
+    e.preventDefault();
+    const email = e.target.email?.value;
+    const password = e.target.password?.value;
+
+    console.log("Signup function entered", { email, password });
+
+    const regExp = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+    if (!regExp.test(password)) {
+      toast.error(
+        "Password must have an Uppercase letter, a Lowercase Letter and length must be at least 6 character."
+      );
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        console.log(res);
+        toast.success("Signup Successful");
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log(e.code);
+        if (e.code == "auth/email-already-in-use") {
+          toast.error("User Already Exist in Database.");
+        } else {
+          toast.error(e.message);
+        }
+      });
   };
 
   return (
@@ -39,8 +66,8 @@ const Signup = () => {
               Sign Up
             </h2>
 
-            <form className="space-y-4">
-              <div>
+            <form onSubmit={handleSignup} className="space-y-4">
+              {/* <div>
                 <label className="block text-sm font-medium mb-1">Name</label>
                 <input
                   type="text"
@@ -57,7 +84,7 @@ const Signup = () => {
                   placeholder="Your photo URL here"
                   className="input input-bordered w-full bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-pink-400"
                 />
-              </div>
+              </div> */}
 
               <div>
                 <label className="block text-sm font-medium mb-1">Email</label>
@@ -74,16 +101,16 @@ const Signup = () => {
                   Password
                 </label>
                 <input
-                  type=""
+                  type={show ? "text" : "password"}
                   name="password"
-                  placeholder="••••••••"
+                  placeholder="••••••"
                   className="input input-bordered w-full bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-pink-400"
                 />
                 <span
                   onClick={() => setShow(!show)}
                   className="absolute right-[8px] top-[36px] cursor-pointer z-50"
                 >
-                  {/* {show ? <FaEye /> : <IoEyeOff />} */}
+                  {show ? <FaEye /> : <IoEyeOff />}
                 </span>
               </div>
 
