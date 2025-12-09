@@ -1,28 +1,26 @@
 import { Link, NavLink } from "react-router";
-import logo from "../assets/img/firebase-logo.png";
 import MyContainer from "./MyContainer";
-import MyLink from "./MyLink";
+import logo from "/public/cat-coffee-logo.png";
+import MyLink from "./MyLinks";
 
 const Navbar = () => {
   
   return (
-    <div className="bg-slate-100f py-2 border-b border-b-slate-300 ">
+    <div className="bg-slate-100 py-2 border-b border-b-slate-300 ">
       <MyContainer className="flex items-center justify-between">
         <figure>
           <img src={logo} className="w-[55px]" />
         </figure>
         <ul className="flex items-center gap-2">
           <li>
-            <MyLink to={"/"}>Home</MyLink>
+            <MyLink to={'/'}>Home</MyLink>           
           </li>
           <li>
-            <MyLink to={"/about-us"}>About US</MyLink>
+            <MyLink to={'/services'}>Services</MyLink>
           </li>
-          {user && (
-            <li>
-              <MyLink to={"/profile"}>Profile</MyLink>
-            </li>
-          )}
+          <li>
+            <MyLink to={'/profile'}>My Profile</MyLink>
+          </li>
         </ul>
  
         <button className="bg-purple-500 text-white px-4 py-2 rounded-md font-semibold cursor-pointer">
