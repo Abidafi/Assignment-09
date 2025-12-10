@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
 import MyContainer from "../components/MyContainer";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -11,10 +11,17 @@ const Signup = () => {
   const [show, setShow] = useState(false);
   const handleSignup = (e) => {
     e.preventDefault();
+    const displayName = e.target.name?.value;
+    const photoURL = e.target.photo?.value;
     const email = e.target.email?.value;
     const password = e.target.password?.value;
 
-    console.log("Signup function entered", { email, password });
+    console.log("Signup function entered", {
+      displayName,
+      photoURL,
+      email,
+      password,
+    });
 
     const regExp = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
@@ -27,8 +34,15 @@ const Signup = () => {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        console.log(res);
-        toast.success("Signup Successful");
+        updateProfile(res.user, {
+          displayName,
+          photoURL,
+        }).then((res) => {
+          console.log(res);
+          toast.success("Signup Successful");
+        }).catch((e) => {
+          toast.error(e.message);
+        });
       })
       .catch((e) => {
         console.log(e);
@@ -67,12 +81,12 @@ const Signup = () => {
             </h2>
 
             <form onSubmit={handleSignup} className="space-y-4">
-              {/* <div>
+              <div>
                 <label className="block text-sm font-medium mb-1">Name</label>
                 <input
                   type="text"
                   name="name"
-                  placeholder="Habib utsho"
+                  placeholder="Your Name"
                   className="input input-bordered w-full bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-pink-400"
                 />
               </div>
@@ -84,7 +98,7 @@ const Signup = () => {
                   placeholder="Your photo URL here"
                   className="input input-bordered w-full bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-pink-400"
                 />
-              </div> */}
+              </div>
 
               <div>
                 <label className="block text-sm font-medium mb-1">Email</label>

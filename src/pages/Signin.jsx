@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 import MyContainer from "../components/MyContainer";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import { toast } from "react-toastify";
 
@@ -13,6 +13,8 @@ const googleProvider = new GoogleAuthProvider();
 const Signin = () => {
   const [user, setUser] = useState(null);
   const [show, setShow] = useState(false);
+  
+  const emailRef = useRef(null)
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -39,6 +41,16 @@ const Signin = () => {
        toast.error(e.message);
     });
   };
+
+  const handleForgetPassword = (e) => {
+    const email = emailRef.current.value;
+    sendPasswordResetEmail( auth, email ).then((res) => {
+        toast.success("Check your email to reset password");
+      })
+      .catch((e) => {
+        toast.error(e.message);
+      });
+  }
 
   const handleSignout = () => {
     signOut(auth).then(()=>{
@@ -96,9 +108,7 @@ const Signin = () => {
                 <input
                   type="email"
                   name="email"
-                  //   ref=""
-                  // value={email}
-                  // onChange={(e) => setEmail(e.target.value)}
+                  ref={emailRef}
                   placeholder="example@email.com"
                   className="input input-bordered w-full bg-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
@@ -122,7 +132,7 @@ const Signin = () => {
 
               <button
                 className="hover:underline cursor-pointer"
-                // onClick={handleForgetPassword}
+                onClick={handleForgetPassword}
                 type="button"
               >
                 Forget password?
