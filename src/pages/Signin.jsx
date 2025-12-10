@@ -1,18 +1,21 @@
 import { Link } from "react-router";
 import MyContainer from "../components/MyContainer";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../firebase/firebase.config";
 import { toast } from "react-toastify";
-
-
-const googleProvider = new GoogleAuthProvider();
+import { AuthContext } from "../context/AuthContext";
 
 const Signin = () => {
-  const [user, setUser] = useState(null);
   const [show, setShow] = useState(false);
+  const {
+    signInWithEmailAndPasswordFunc,
+    signInWithEmailFunc,
+    signOutUserFunc,
+    sendPassResetEmailFunc,
+    user,
+    setUser
+  } = useContext(AuthContext)
   
   const emailRef = useRef(null)
 
@@ -21,7 +24,7 @@ const Signin = () => {
     const email = e.target.email?.value;
     const password = e.target.password?.value;
     console.log({email, password});
-    signInWithEmailAndPassword(auth, email, password).then(res => {
+    signInWithEmailAndPasswordFunc( email, password).then(res => {
       console.log(res);
       setUser(res.user);
       toast.success("Signin Successful");
@@ -32,7 +35,7 @@ const Signin = () => {
   };
 
   const handleGoogleSignin = () => {
-    signInWithPopup(auth, googleProvider).then(res => {
+    signInWithEmailFunc().then(res => {
       console.log(res);
       setUser(res.user);
       toast.success("Signin Successful");
@@ -42,9 +45,9 @@ const Signin = () => {
     });
   };
 
-  const handleForgetPassword = (e) => {
+  const handleForgetPassword = () => {
     const email = emailRef.current.value;
-    sendPasswordResetEmail( auth, email ).then((res) => {
+    sendPassResetEmailFunc(email).then((res) => {
         toast.success("Check your email to reset password");
       })
       .catch((e) => {
@@ -53,7 +56,7 @@ const Signin = () => {
   }
 
   const handleSignout = () => {
-    signOut(auth).then(()=>{
+    signOutUserFunc().then(()=>{
       toast.success("Signout Successful");
       setUser(null);
     }).catch(e=>{

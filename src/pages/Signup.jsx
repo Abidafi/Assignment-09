@@ -5,10 +5,13 @@ import MyContainer from "../components/MyContainer";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
+  const {createUserWithEmailAndPasswordFunc} = useContext(AuthContext)
+
   const handleSignup = (e) => {
     e.preventDefault();
     const displayName = e.target.name?.value;
@@ -32,7 +35,8 @@ const Signup = () => {
       return;
     }
 
-    createUserWithEmailAndPassword(auth, email, password)
+    // createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPasswordFunc(email, password)
       .then((res) => {
         updateProfile(res.user, {
           displayName,

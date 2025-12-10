@@ -3,6 +3,7 @@ import MyContainer from "./MyContainer";
 import logo from "/public/cat-coffee-logo.png";
 import MyLink from "./MyLinks";
 
+
 const Navbar = () => {
   
   return (
