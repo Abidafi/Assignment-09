@@ -5,35 +5,41 @@ import Services from "../pages/Services";
 import MyProfile from "../pages/MyProfile";
 import Signup from "../pages/Signup";
 import Signin from "../pages/Signin";
-
-
-
+import PrivateRoute from "../privateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
-        {
-            index: true,
-            element: <Homepage />
-        },
-        {
-            path: '/services',
-            element: <Services />
-        },
-        {
-            path: '/profile',
-            element: <MyProfile />
-        },
-        {
+      {
+        index: true,
+        element: <Homepage />,
+      },
+      {
+        path: "/services",
+        element: (
+          <PrivateRoute>
+            <Services />,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <MyProfile />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/signup",
         element: <Signup />,
-        },
-        {
+      },
+      {
         path: "/signin",
         element: <Signin />,
-        }
+      },
     ],
   },
 ]);

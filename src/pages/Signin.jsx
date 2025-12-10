@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import MyContainer from "../components/MyContainer";
 import { useContext, useRef, useState } from "react";
 import { FaEye } from "react-icons/fa";
@@ -16,7 +16,16 @@ const Signin = () => {
     setUser,
   } = useContext(AuthContext);
 
+  const location = useLocation();
+  console.log(location.state);
+  const from = location.state?.from || "/";
+
   const emailRef = useRef(null);
+  const navigate = useNavigate()
+
+  if (user) {
+    return <Navigate to={from} />;
+  }
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -28,6 +37,7 @@ const Signin = () => {
         console.log(res);
         setUser(res.user);
         toast.success("Signin Successful");
+        navigate(from, {replace: true});
       })
       .catch((e) => {
         console.log(e);
@@ -41,6 +51,7 @@ const Signin = () => {
         console.log(res);
         setUser(res.user);
         toast.success("Signin Successful");
+        navigate(from, {replace: true});
       })
       .catch((e) => {
         console.log(e);

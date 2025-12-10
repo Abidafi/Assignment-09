@@ -5,11 +5,11 @@ import MyLink from "./MyLinks";
 import { use } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { FadeLoader } from "react-spinners";
 
 const Navbar = () => {
-  const { user, setUser, signOutUserFunc } = use(AuthContext);
-
-  console.log(user);
+  const { user, setUser, signOutUserFunc, loading, setLoading } =
+    use(AuthContext);
 
   const handleSignout = () => {
     signOutUserFunc()
@@ -21,6 +21,8 @@ const Navbar = () => {
         toast.error(e.message);
       });
   };
+
+  console.log(loading);
 
   return (
     <div className="bg-slate-100 py-2 border-b border-b-slate-300 ">
@@ -35,12 +37,16 @@ const Navbar = () => {
           <li>
             <MyLink to={"/services"}>Services</MyLink>
           </li>
-          <li>
-            <MyLink to={"/profile"}>My Profile</MyLink>
-          </li>
+          {user && (
+            <li>
+              <MyLink to={"/profile"}>My Profile</MyLink>
+            </li>
+          )}
         </ul>
 
-        {user ? (
+        {loading ? (
+          <FadeLoader height={10} width={5} margin={2} />
+        ) : user ? (
           <div className="flex items-center gap-4">
             {/* User Profile Hover Trigger */}
             <div className="relative group">

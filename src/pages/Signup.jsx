@@ -10,8 +10,16 @@ import { AuthContext } from "../context/AuthContext";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
-  const { createUserWithEmailAndPasswordFunc, updateProfileFunc } =
-    useContext(AuthContext);
+  const {
+    createUserWithEmailAndPasswordFunc,
+    updateProfileFunc,
+    signInWithEmailFunc,
+    setLoading,
+    signOutUserFunc,
+    setUser,
+  } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -39,10 +47,15 @@ const Signup = () => {
     // createUserWithEmailAndPassword(auth, email, password)
     createUserWithEmailAndPasswordFunc(email, password)
       .then((res) => {
-        updateProfileFunc(displayName, photoURL)
-          .then((res) => {
-            console.log(res);
+        updateProfileFunc(displayName, photoURL).then((res) => {
+          console.log(res);
+          setLoading(false);
+        });
+        signOutUserFunc()
+          .then(() => {
             toast.success("Signup Successful");
+            setUser(null);
+            navigate("/");
           })
           .catch((e) => {
             toast.error(e.message);
@@ -56,6 +69,23 @@ const Signup = () => {
         } else {
           toast.error(e.message);
         }
+      });
+  };
+
+  const handleGoogleSignup = () => {
+    signInWithEmailFunc()
+      .then((res) => {
+        setLoading(false);
+        return signOutUserFunc();
+      })
+      .then(() => {
+        toast.success("Signup Successful");
+        setUser(null);
+        navigate("/");
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error(e.message);
       });
   };
 
@@ -134,6 +164,26 @@ const Signup = () => {
 
               <button type="submit" className="my-btn">
                 Sign Up
+              </button>
+
+              {/* Divider */}
+              <div className="flex items-center justify-center gap-2 my-2">
+                <div className="h-px w-16 bg-white/30"></div>
+                <span className="text-sm text-white/70">or</span>
+                <div className="h-px w-16 bg-white/30"></div>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleGoogleSignup}
+                className="flex items-center justify-center gap-3 bg-white text-gray-800 px-5 py-2 rounded-lg w-full font-semibold hover:bg-gray-100 transition-colors cursor-pointer"
+              >
+                <img
+                  src="https://www.svgrepo.com/show/475656/google-color.svg"
+                  alt="google"
+                  className="w-5 h-5"
+                />
+                Continue with Google
               </button>
 
               <div className="text-center mt-3">
