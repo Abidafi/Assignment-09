@@ -11,57 +11,52 @@ const Signin = () => {
   const {
     signInWithEmailAndPasswordFunc,
     signInWithEmailFunc,
-    signOutUserFunc,
     sendPassResetEmailFunc,
     user,
-    setUser
-  } = useContext(AuthContext)
-  
-  const emailRef = useRef(null)
+    setUser,
+  } = useContext(AuthContext);
+
+  const emailRef = useRef(null);
 
   const handleSignin = (e) => {
     e.preventDefault();
     const email = e.target.email?.value;
     const password = e.target.password?.value;
-    console.log({email, password});
-    signInWithEmailAndPasswordFunc( email, password).then(res => {
-      console.log(res);
-      setUser(res.user);
-      toast.success("Signin Successful");
-    }).catch(e =>{
-       console.log(e);
-       toast.error(e.message);
-    })
+    console.log({ email, password });
+    signInWithEmailAndPasswordFunc(email, password)
+      .then((res) => {
+        console.log(res);
+        setUser(res.user);
+        toast.success("Signin Successful");
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error(e.message);
+      });
   };
 
   const handleGoogleSignin = () => {
-    signInWithEmailFunc().then(res => {
-      console.log(res);
-      setUser(res.user);
-      toast.success("Signin Successful");
-    }).catch(e =>{
-       console.log(e);
-       toast.error(e.message);
-    });
+    signInWithEmailFunc()
+      .then((res) => {
+        console.log(res);
+        setUser(res.user);
+        toast.success("Signin Successful");
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error(e.message);
+      });
   };
 
   const handleForgetPassword = () => {
     const email = emailRef.current.value;
-    sendPassResetEmailFunc(email).then((res) => {
+    sendPassResetEmailFunc(email)
+      .then((res) => {
         toast.success("Check your email to reset password");
       })
       .catch((e) => {
         toast.error(e.message);
       });
-  }
-
-  const handleSignout = () => {
-    signOutUserFunc().then(()=>{
-      toast.success("Signout Successful");
-      setUser(null);
-    }).catch(e=>{
-      toast.error(e.message);
-    })
   };
 
   console.log(user);
@@ -89,19 +84,7 @@ const Signin = () => {
 
           {/* Login card */}
           <div className="w-full max-w-md backdrop-blur-lg bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-8">
-            { user ? 
-            (
-             <div className="text-center space-y-3">
-                <img 
-                src={user?.photoURL || "https://via.placeholder.com/88"}
-                className="h-20 w-20 rounded-full mx-auto" 
-                alt="" />
-                <h2 className="text-xl font-semibold">{user?.displayName}</h2>
-                <p className="text-white/80">{user?.email}</p>
-                <button onClick={handleSignout} className="my-btn">Sign Out</button>
-             </div>
-            ) : 
-            (<form onSubmit={handleSignin} className="space-y-5">
+            <form onSubmit={handleSignin} className="space-y-5">
               <h2 className="text-2xl font-semibold mb-2 text-center text-white">
                 Sign In
               </h2>
@@ -175,7 +158,7 @@ const Signin = () => {
                   Sign up
                 </Link>
               </p>
-            </form>)}
+            </form>
           </div>
         </div>
       </MyContainer>
