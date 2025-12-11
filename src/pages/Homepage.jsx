@@ -5,6 +5,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import 'animate.css/animate.min.css';
 
 import PetCard from "../components/PetCard";
 import usePets from "../hooks/usePets";
@@ -176,7 +177,7 @@ const Homepage = () => {
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-50 to-cyan-100 text-center pt-10 md:pt-15 lg:pt-18">
       {/* Winter-themed header */}
       <div className="text-center mb-8 px-4">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-900 mb-3">
+        <h1 className="animate__animated animate__bounce animate__infinite text-4xl md:text-5xl lg:text-6xl font-bold text-blue-900 mb-3">
           🐾 Winter Pet Paradise 🐾
         </h1>
         <p className="text-lg md:text-xl text-blue-700 max-w-2xl mx-auto">

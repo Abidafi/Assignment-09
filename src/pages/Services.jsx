@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Services = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +16,14 @@ const Services = () => {
     petName: "",
     date: "",
   });
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // animation duration in milliseconds
+      once: true, // whether animation should happen only once
+      offset: 100, // offset (in px) from the original trigger point
+    });
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -202,7 +212,11 @@ const Services = () => {
     <div className="bg-gradient-to-br from-blue-50 to-cyan-100 pt-10 md:pt-15 lg:pt-18">
       {/* Hero Section */}
       <div className="text-center mb-12 px-4 py-8">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-900 mb-4">
+        <h1
+          className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-900 mb-4"
+          data-aos="fade-down"
+          data-aos-delay="100"
+        >
           ❄️ Winter Pet Services ❄️
         </h1>
         <p className="text-lg md:text-xl text-blue-700 max-w-3xl mx-auto mb-6">
@@ -299,7 +313,11 @@ const Services = () => {
       {/* Service Packages */}
       <div className="w-full px-4 mt-12 mb-16">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl text-blue-900 mb-2 text-center">
+          <h2
+            className="text-3xl font-bold sm:text-4xl md:text-5xl text-blue-900 mb-2 text-center"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             Winter Service Packages
           </h2>
           <p className="text-lg text-blue-700 mb-8 text-center max-w-2xl mx-auto">
@@ -364,7 +382,11 @@ const Services = () => {
       {/* Testimonials */}
       <div className="w-full px-4 py-12 md:py-16 lg:py-20 bg-gradient-to-br from-blue-50 to-cyan-100">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl text-blue-900 mb-2 text-center">
+          <h2
+            className="text-3xl font-bold sm:text-4xl md:text-5xl text-blue-900 mb-2 text-center"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             Service Reviews
           </h2>
           <p className="text-lg text-blue-700 mb-8 text-center max-w-2xl mx-auto">
@@ -428,7 +450,11 @@ const Services = () => {
           <div className="flex flex-col lg:flex-row">
             {/* Form Section */}
             <div className="md:w-1/2 p-8 md:p-12">
-              <h2 className="text-3xl font-bold text-blue-900 mb-2">
+              <h2
+                className="text-3xl font-bold text-blue-900 mb-2"
+                data-aos="fade-right"
+                data-aos-delay="100"
+              >
                 Book Your Winter Service
               </h2>
               <p className="text-gray-600 mb-8">
@@ -448,7 +474,7 @@ const Services = () => {
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                    placeholder="John Doe"
+                    placeholder="Write Down Your Name"
                   />
                 </div>
 
@@ -463,7 +489,7 @@ const Services = () => {
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                    placeholder="john@example.com"
+                    placeholder="example@mail.com"
                   />
                 </div>
 
@@ -502,7 +528,7 @@ const Services = () => {
                     value={formData.petName}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                    placeholder="e.g., Max, Luna"
+                    placeholder="Your Pet Name"
                   />
                 </div>
 

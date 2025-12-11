@@ -7,9 +7,11 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { FadeLoader } from "react-spinners";
 
+
+
 const Navbar = () => {
   const { user, setUser, signOutUserFunc, loading, setLoading } =
-    use(AuthContext);
+    use(AuthContext); 
 
   const handleSignout = () => {
     signOutUserFunc()
@@ -22,15 +24,13 @@ const Navbar = () => {
       });
   };
 
-  console.log(loading);
-
   return (
     <div className="bg-slate-100 py-2 border-b border-b-slate-300 ">
       <MyContainer className="flex items-center justify-between">
         <figure>
-          <img src={logo} className="w-[55px]" />
+          <img src={logo} className="w-10 md:w-[55px] lg:w-[60px] transition-all duration-300" />
         </figure>
-        <ul className="flex items-center gap-2">
+        <ul className="hidden md:flex items-center gap-4 lg:gap-6">
           <li>
             <MyLink to={"/"}>Home</MyLink>
           </li>
