@@ -1,3 +1,4 @@
+import { Facebook, Linkedin, Mail, Twitter } from "lucide-react";
 import React from "react";
 
 const Footer = () => {
@@ -7,10 +8,10 @@ const Footer = () => {
           <div className="flex justify-center sm:justify-start items-center gap-2 sm:col-span-2 lg:col-span-1">
             <img 
             className="w-7 h-7 sm:w-8 sm:h-8" 
-            src="/logo-hero-IO.png" 
+            src="/cat-coffee-logo.png" 
             alt="" />
             <h3 className="text-white font-semibold text-lg sm:text-xl">
-               HERO:IO 
+               Winter <br />Pet <br />Paradise
             </h3>
           </div>
           <div className="text-center sm:text-left">
@@ -40,10 +41,10 @@ const Footer = () => {
           <div className="text-center sm:text-left sm:col-span-2 lg:col-span-1">
             <h4 className="text-white font-semibold mb-3 text-base sm:text-sm">Social Links</h4>
             <ul className="space-y-3 sm:space-y-2 text-sm">
-              <li className="flex items-center justify-center sm:justify-start gap-2 hover:text-white cursor-pointer transition-colors"><img src="/x.png" className="w-4 h-4" alt="" /><span>HERO.IO</span></li>
-              <li className="flex items-center justify-center sm:justify-start gap-2 hover:text-white cursor-pointer transition-colors"><img src="/linkedin.png" className="w-4 h-4" alt="" /><span>HERO.IO</span></li>
-              <li className="flex items-center justify-center sm:justify-start gap-2 hover:text-white cursor-pointer transition-colors"><img src="/facebook.png" className="w-4 h-4" alt="" /><span>HERO.IO</span></li>
-              <li className="flex items-center justify-center sm:justify-start gap-2 hover:text-white cursor-pointer transition-colors"><img src="/mail.png" className="w-4 h-4" alt="" /><span>support@hero.com</span></li>
+              <li className="flex items-center justify-center sm:justify-start gap-2 hover:text-white cursor-pointer transition-colors"><Facebook className="w-4 h-4" /><span>Pet.Paradise</span></li>
+              <li className="flex items-center justify-center sm:justify-start gap-2 hover:text-white cursor-pointer transition-colors"><Linkedin className="w-4 h-4" /><span>Pet.Paradise</span></li>
+              <li className="flex items-center justify-center sm:justify-start gap-2 hover:text-white cursor-pointer transition-colors"><Twitter className="w-4 h-4" /><span>Pet.Paradise</span></li>
+              <li className="flex items-center justify-center sm:justify-start gap-2 hover:text-white cursor-pointer transition-colors"><Mail className="w-4 h-4" /><span>support@paradise.com</span></li>
             </ul>
           </div>
         </div>
