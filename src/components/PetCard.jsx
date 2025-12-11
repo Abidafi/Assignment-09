@@ -5,7 +5,7 @@ const PetCard = ({ pet }) => {
   const { image, serviceName, price, rating } = pet;
   
   return (
-    <div className="card w-[320px] h-[430px] bg-base-100 shadow-lg rounded-xl overflow-hidden hover:scale-[1.02] transition-all duration-300 ease-in-out hover:shadow-xl border border-gray-100">
+    <div className="card w-full max-w-[320px] h-auto min-h-[430px] sm:h-[430px] bg-base-100 shadow-lg rounded-xl overflow-hidden hover:scale-[1.02] transition-all duration-300 ease-in-out hover:shadow-xl border border-gray-100">
       {/* Image Section */}
       <div className="relative h-48 overflow-hidden">
         <img

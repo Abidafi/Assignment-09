@@ -223,7 +223,7 @@ const Homepage = () => {
         >
           {winterPets.map((pet) => (
             <SwiperSlide key={pet.id}>
-              <div className="relative h-[500px] md:h-[600px] lg:h-[700px]">
+              <div className="relative h-[60vh] md:h-[70vh] lg:h-[80vh] min-h-[400px]">
                 {/* Background with overlay */}
                 <div className="absolute inset-0">
                   <img

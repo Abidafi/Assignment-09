@@ -425,7 +425,7 @@ const Services = () => {
       {/* Book Service Form */}
       <div className="w-full p-6 mt-3">
         <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
-          <div className="md:flex">
+          <div className="flex flex-col lg:flex-row">
             {/* Form Section */}
             <div className="md:w-1/2 p-8 md:p-12">
               <h2 className="text-3xl font-bold text-blue-900 mb-2">
